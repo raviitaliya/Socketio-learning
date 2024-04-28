@@ -19,12 +19,24 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+
+
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
 
-  socket.on("message", (data) => {
-    console.log(data);
+
+
+
+
+  socket.on("message", ({room,message}) => {
+    socket.to(room).emit("allmessage",message)
   });
+
+
+
+
+
+
 
   socket.on("disconnect", () => {
     console.log("user dissconnected", socket.id);
