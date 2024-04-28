@@ -8,16 +8,24 @@ function App() {
 
   const [message,setMessage]=useState("");
   const [room,setroom]=useState("");
-  const [joinRoom,setjoinRoom]=useState("");
-
   const [socketid,setsocketid]=useState("");
   const [ansMsg, setansMsg] = useState([]); 
+  const [joinRoom,setjoinRoom]=useState("");
+
+
 
 
   const formhandler=(e)=>{
     e.preventDefault();
     socket.emit("message",{message,room})
-    
+    setMessage("")
+  }
+
+  const joinhandler=(e)=>{
+    e.preventDefault();
+    socket.emit("join_room",joinRoom)
+    console.log(joinRoom);
+    setjoinRoom("");
   }
 
 
@@ -53,11 +61,13 @@ function App() {
 
           <h4>{socketid}</h4>
 
-        <form onSubmit={formhandler}>
-          <input type="text" value={joinRoom} onChange={(e)=>{setjoinRoom(e.target.value)}} placeholder="Join room"/> 
+        <form onSubmit={joinhandler}>
+        <input type="text" value={joinRoom} onChange={(e)=>{setjoinRoom(e.target.value)}} placeholder="Join room"/> 
           <button type="submit" >join</button> <br/>
           <br/>
+        </form>
 
+        <form onSubmit={formhandler}>
           <input type="text" value={message} onChange={(e)=>{setMessage(e.target.value)}} placeholder="message"/> <br/>
           <input type="text" value={room} onChange={(e)=>{setroom(e.target.value)}} placeholder="client id"/> 
           <button type="submit" >Send</button>

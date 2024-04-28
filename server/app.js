@@ -29,11 +29,15 @@ io.on("connection", (socket) => {
 
 
   socket.on("message", ({room,message}) => {
+    console.log({room,message});
     io.to(room).emit("allmessage",message)
   });
 
 
-
+  socket.on("join_room", (room) => {
+    socket.join(room);
+    console.log("user joined room:", room);
+  })
 
 
 
