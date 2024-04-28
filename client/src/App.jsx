@@ -12,7 +12,6 @@ function App() {
   const [ansMsg, setansMsg] = useState([]); 
 
 
-  console.log(ansMsg);
   const formhandler=(e)=>{
     e.preventDefault();
     socket.emit("message",{message,room})
@@ -33,7 +32,7 @@ function App() {
 
 
     socket.on("allmessage",(data)=>{
-      setansMsg(data);
+      setansMsg((ansMsg)=>[...ansMsg,data])
     })
 
 
@@ -58,10 +57,13 @@ function App() {
           <button type="submit" >Send</button>
         </form>
 
-        {/* <p>{ansMsg.map((m,i)=>(
-          <p key={i}>{m.ansMsg}</p>
-        ))}
-        </p> */}
+        <p>
+          {
+            ansMsg.map((item,index)=>{
+              return <div key={index}>{item}</div>
+            })
+          }
+        </p>
       </div>
     </>
   );
