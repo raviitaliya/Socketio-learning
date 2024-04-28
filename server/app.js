@@ -29,7 +29,7 @@ io.on("connection", (socket) => {
 
 
   socket.on("message", ({room,message}) => {
-    socket.to(room).emit("allmessage",message)
+    io.to(room).emit("allmessage",message)
   });
 
 
