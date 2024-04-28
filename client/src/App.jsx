@@ -2,7 +2,7 @@ import { useEffect,useState,useMemo } from "react";
 import "./App.css";
 import { io } from "socket.io-client";
 function App() {
-  const socket = useMemo(()=>io("http://localhost:3000"),[]);
+  const socket = useMemo(()=>io("http://raviws.honeynine.wiki:7474/"),[]);
 
 
 
